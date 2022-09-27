@@ -1,3 +1,64 @@
+# DT5720_UserManual
+
+>- User Manual UM3244
+>- rev10
+>- 2017.05.26 
+>- 2/4 Channel 12bit 250MS/s Digitizer
+
+
+
+## 目的
+
+1. 完整硬件描述
+2. 作为波形记录数字化仪Waveform Recording Digitizer（后称波形记录固件Waveform recording firmware）的工作原理
+
+firmware version: 4.14_0.14
+
+- 寄存器的去看 UM5961 – 720 Registers Description.
+- DPP(Digital Pulse Processing) firmware，去看  UM2088 – DPP-PSD User Manual.
+
+
+
+## 符号
+
+ADC 	   Analog-to-Digital Converter
+AMC 	  ADC & Memory Controller
+DAQ 	  Data Acquisition
+DAC 	   Digital-to-Analog Converter
+DC 		 Direct Current
+LVDS 	 Low-Voltage Differential Signal
+PLL 		Phase-Locked Loop
+ROC 	   ReadOut Controller
+TTT 		Trigger Time Tag
+USB 	   Universal Serial Bus
+
+
+
+## Introduction
+
+DT5720: 2/4 Channel 12 bit 250 MS/s Desktop Waveform Digitizer with 2 Vpp input dynamic range
+
+(Vpp： 峰峰值，最大正弦值 - 最小正弦值)
+
+**Considering the sampling frequency and bit number, these digitizers are well suited for mid-fast signals**  as the ones coming from liquid or inorganic scintillators coupled with PMTs or Silicon Photomultiplie
+
+each channel is able to generate a self-trigger when the input signal goes under/over a programmable threshold.
+
+During the acquisition, data stream is continuously written in a circular memory buffer.
+
+Two modes are supported for the event storage in the board memories: Standard mode and Pack2.5 mode
+
+The board houses USB 2.0 and optical link interfaces. USB 2.0 allows data transfers up to 30 MB/s.  The
+Optical Link interface is capable of transfer rate up to 80 MB/s and offers daisy chain capability.
+
+In addition to the waveform recording firmware, CAEN provides for this digitizer the Digital Pulse Processing firmware (DPP) for the Pulse Shape Discrimination (DPP-PSD) , which combines the functionalities of a digital QDC (charge integration) and discriminator of different shapes for particle identification.
+
+
+
+
+
+
+
 The Mod. DT5720 is 2/4 Channel 12 bit 250 MS/s Desktop Waveform Digitizer with 2 Vpp input dynamic range on single ended MCX coaxial connectors (see Tab. 1.1). The DC offset is adjustable via a 16-bit DAC on each channel in the 1 V range. 
 Considering the sampling frequency and bit number, these digitizers are well suited for mid-fast signals as the ones coming from liquid or inorganic scintillators coupled with PMTs or Silicon Photomultiplier. 
 A common acquisition trigger signal (common to all the channels) can be fed externally via the front panel TRG-IN input connector or via software. Alternatively, each channel is able to generate a self-trigger when the input signal goes under/over a programmable threshold. The trigger from one board can be propagated out of the board through the front panel GPO . 
@@ -8,7 +69,7 @@ DT5720 features front panel CLK-IN connector as well as an internal PLL for cloc
 The board houses USB 2.0 and optical link interfaces. USB 2.0 allows data transfers up to 30 MB/s.The Optical Link interface (CAEN proprietary CONET protocol) is capable of transfer rate up to 80 MB/s and offers daisy chain capability. Therefore, it is possible to connect up to 8 ADC modules to a single A2818 Optical Link Controller, or up to 32 using a 4-link A3818 version (Mod. A2818/A3818, see Tab. 1.1). 
 In addition to the waveform recording firmware, CAEN provides for this digitizer the Digital Pulse Processing firmware (DPP) for the Pulse Shape Discrimination (DPP-PSD) [RD2], which combines the functionalities of a digital QDC (charge integration) and discriminator of different shapes for particle identification. These special firmware make the digitizer an enhanced system for Physics Applications. 
 
-Mod. DT5720是2/4通道12位250 MS/s桌面波形数字化仪，单端MCX同轴连接器上有2 Vpp输入动态范围(见表1.1)。直流偏移是可调节的，通过一个16位DAC在1 V范围内的每个通道。
+Mod. DT5720是2/4通道12位250 MS/s桌面波形数字化仪，单端MCX同轴连接器上有2 Vpp输入动态范围(见表1.1)。直流偏移是可调节的，通过一个16位DAC在+-1 V范围内的每个通道。
 
 考虑到采样频率和比特数，这些数字发生器非常适合于中快信号，如来自液体或无机闪烁体与PMTs或硅光电倍增管耦合的信号。
 
