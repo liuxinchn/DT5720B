@@ -143,3 +143,47 @@ The TRG-CLK logic works at 125 MHz, equal to the sampling frequency: TRG-CLK = S
 ”采集窗口“会发生重叠，这种重叠可以被拒绝也可以被接受，可以通过软件编程实现。
 
 ![image-20220928205118909](C:\Users\49411\AppData\Roaming\Typora\typora-user-images\image-20220928205118909.png)
+
+#### Multi-Event Memory Organization
+
+每个通道都有单独的SRAM内存，内存可以再划分成不同数量的缓冲区。
+
+自定义缓冲区大小直接影响采集窗口的宽度，CAEN中记录长度参数和CAENDigitizer库中的Set/GetRecordlength()函数都依赖于这些概念。
+
+
+
+### Event structure
+
+事件由Header和Data组成。数据格式32位字长
+
+![image-20220929103158565](C:\Users\49411\AppData\Roaming\Typora\typora-user-images\image-20220929103158565.png)
+
+
+
+### Acquisition Synchronization
+
+每个通道都有SRAM内存，内存分成多个缓冲区，当trigger发生时，FPGA会进一步为post-trigger写入可编程数量的样本并冻结缓冲区，以便存储的数据可以通过USB或Optical Link读取。Acquisiton可以在新的缓冲区中继续进行。
+
+所有buffer都写满之后，board被认为时Full，这时候不能再被写入，并停止采集，直到有一个buffer被读出，此时board推出full。
+
+
+
+## Zero Suppression
+
+x720可以根据 Zero Suppression去选择事件，Zero Suppression允许用户以只传输有用数据的方式来减少数据传输的数据量。但是Zero Suppression在读出数据时起作用，所有存在延迟，并且所有的事件必须使用相同的trigger，由FPGA分析满足条件的事件并传输它。
+
+
+
+### Full Suppression based on the Amplitude of the Signal
+
+两种方法丢弃数据
+
+1. 信号没有超过了阈值至少N秒
+2. 信号没有超过阈值
+
+
+
+阈值Tamp和Ns是个人设置的，Novt是实际超过阈值的时间，Novt > Ns，事件被获取。
+
+![image-20220929163121761](C:\Users\49411\AppData\Roaming\Typora\typora-user-images\image-20220929163121761.png)
+
