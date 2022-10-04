@@ -168,13 +168,13 @@ The TRG-CLK logic works at 125 MHz, equal to the sampling frequency: TRG-CLK = S
 
 
 
-## Zero Suppression
+### Zero Suppression
 
 x720可以根据 Zero Suppression去选择事件，Zero Suppression允许用户以只传输有用数据的方式来减少数据传输的数据量。但是Zero Suppression在读出数据时起作用，所有存在延迟，并且所有的事件必须使用相同的trigger，由FPGA分析满足条件的事件并传输它。
 
 
 
-### Full Suppression based on the Amplitude of the Signal
+#### Full Suppression based on the Amplitude of the Signal
 
 两种方法丢弃数据
 
@@ -187,3 +187,22 @@ x720可以根据 Zero Suppression去选择事件，Zero Suppression允许用户�
 
 ![image-20220929163121761](C:\Users\49411\AppData\Roaming\Typora\typora-user-images\image-20220929163121761.png)
 
+#### Zero Length Encoding ZLE
+
+会把样本标记为“good”和“skipped”，交错记录，所有的数据都会被记录下来（包括skipped，但skipped只记录个数，不会详细记录波形信息）。
+
+![image-20221004093909587](C:\Users\49411\AppData\Roaming\Typora\typora-user-images\image-20221004093909587.png)
+
+
+
+### Trigger Management
+
+**Software Trigger:** 通过软件命令（途经USB或Optical Link）
+
+**External Trigger：**the front panel TRG-IN connector
+
+**Self-Trigger:**设置阈值与N，当连续N个点超过阈值，开始采集。[self-Trigger具有延迟性，因为要连续采N个点]
+
+**Coincidences:**对于所有通道来说，设置一个Majority Level，当 `Number of enabled channels > Majority level `，可以采集。
+
+**TRG-IN as Gate：**the AND between the external signal on TRG-IN and the other trigger sources
